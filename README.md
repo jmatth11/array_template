@@ -16,6 +16,8 @@ Example:
 #ifndef INT_ARRAY_H
 #define INT_ARRAY_H
 
+#include "array_template.h"
+
 /**
  * This function generates all of the template array functions and types.
  *
