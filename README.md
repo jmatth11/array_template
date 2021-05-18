@@ -3,6 +3,8 @@
 ### TODOS
 - write unit tests
 
+---
+
 A small header only C file to generate arrays of a given type.
 
 To generate a template array for your type create your header file and include in `array_template.h`.
