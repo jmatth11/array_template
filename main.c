@@ -15,8 +15,9 @@ generate_array_template(int, int)
 
     /**
      * forcing a typedef to the template array type
+     * I don't need to do this but it ensures my type will always point to however the array template type generates to. (if I change it)
      */
-    typedef int_array array_template_type(int);
+    typedef array_template_type(int) int_array;
 
 /**
  * Simple example file.
