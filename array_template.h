@@ -30,15 +30,20 @@
  *
  * @param[in] arr The template array to get initialized
  * @param[in] N The size to allocate to
+ * @return 1 for nominal case, 0 if malloc failed.
  */
 #define init_array_template(name, type)                                        \
-  static inline void init_##name##_array(array_template_type(name) * arr,      \
-                                         size_t N) {                           \
+  static inline int init_##name##_array(array_template_type(name) * arr,       \
+                                        size_t N) {                            \
     if (N < 0)                                                                 \
       N = 0;                                                                   \
     arr->array_template_data(name) = (type *)malloc(N * sizeof(type));         \
+    if (arr->array_template_data(name) == NULL) {                              \
+      return 0;                                                                \
+    }                                                                          \
     arr->len = 0;                                                              \
     arr->cap = N;                                                              \
+    return 1;                                                                  \
   }
 
 /**
