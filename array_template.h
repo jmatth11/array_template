@@ -59,19 +59,26 @@
  *
  * @param[in] arr The template array
  * @param[in] obj The item to insert
+ * @return 1 for nominal case, 0 if realloc failed. (original array is still
+ * valid)
  */
 #define insert_array_template(name, type)                                      \
-  static inline void insert_##name##_array(array_template_type(name) * arr,    \
-                                           type obj) {                         \
+  static inline int insert_##name##_array(array_template_type(name) * arr,     \
+                                          type obj) {                          \
     if (arr->len >= arr->cap) {                                                \
       if (arr->cap <= 0)                                                       \
         arr->cap = 1;                                                          \
       arr->cap +=                                                              \
           ((float)arr->cap * array_template_capacity_increase_constant);       \
-      arr->array_template_data(name) = (type *)realloc(                        \
-          arr->array_template_data(name), arr->cap * sizeof(type));            \
+      type *newArr = (type *)realloc(arr->array_template_data(name),           \
+                                     arr->cap * sizeof(type));                 \
+      if (newArr == NULL) {                                                    \
+        return 0;                                                              \
+      }                                                                        \
+      arr->array_template_data(name) = newArr;                                 \
     }                                                                          \
     arr->array_template_data(name)[arr->len++] = obj;                          \
+    return 1;                                                                  \
   }
 
 /**
