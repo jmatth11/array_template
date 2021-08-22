@@ -1,4 +1,4 @@
-# Template Array
+# Array Template
 
 ### TODOS
 - write unit tests
