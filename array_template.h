@@ -36,7 +36,7 @@
   static inline int init_##name##_array(array_template_type(name) * arr,       \
                                         size_t N) {                            \
     if (N < 0)                                                                 \
-      N = 0;                                                                   \
+      N = 1;                                                                   \
     arr->array_template_data(name) = (type *)malloc(N * sizeof(type));         \
     if (arr->array_template_data(name) == NULL) {                              \
       return 0;                                                                \
@@ -74,7 +74,7 @@
       if (arr->cap <= 0)                                                       \
         arr->cap = 1;                                                          \
       arr->cap +=                                                              \
-          ((float)arr->cap * array_template_capacity_increase_constant);       \
+          ((double)arr->cap * array_template_capacity_increase_constant);      \
       type *newArr = (type *)realloc(arr->array_template_data(name),           \
                                      arr->cap * sizeof(type));                 \
       if (newArr == NULL) {                                                    \
